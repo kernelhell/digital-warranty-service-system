@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<div class="row-between">
+  <h1>Service Records</h1>
+  <a class="btn" href="/services/new">+ Log Service</a>
+</div>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Owner</th>
+      <th>Date</th>
+      <th>Issue</th>
+      <th>Status</th>
+      <th>Cost</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% services.forEach(s => { %>
+      <tr>
+        <td><a href="/products/<%= s.Product.id %>"><%= s.Product.productName %></a></td>
+        <td><%= s.Product.Customer ? s.Product.Customer.name : '-' %></td>
+        <td><%= s.serviceDate %></td>
+        <td><%= s.issueDescription %></td>
+        <td><%= s.status %></td>
+        <td>₹<%= s.serviceCost %></td>
+        <td>
+          <form action="/services/<%= s.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this service record?');">
+            <button class="btn-small btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+    <% if (services.length === 0) { %>
+      <tr><td colspan="7" class="empty">No service records yet.</td></tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('partials/footer') %>

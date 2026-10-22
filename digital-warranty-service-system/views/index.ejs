@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<h1>Dashboard</h1>
+<p class="subtitle">Overview of your warranty and service records</p>
+
+<div class="cards">
+  <div class="card">
+    <h2><%= customerCount %></h2>
+    <p>Customers</p>
+    <a href="/customers">Manage Customers &rarr;</a>
+  </div>
+  <div class="card">
+    <h2><%= productCount %></h2>
+    <p>Registered Products</p>
+    <a href="/products">Manage Products &rarr;</a>
+  </div>
+  <div class="card">
+    <h2><%= serviceCount %></h2>
+    <p>Service Records</p>
+    <a href="/services">Manage Service Records &rarr;</a>
+  </div>
+</div>
+
+<div class="quick-actions">
+  <a class="btn" href="/customers">+ Add Customer</a>
+  <a class="btn" href="/products/new">+ Register Product</a>
+  <a class="btn" href="/services/new">+ Log Service</a>
+</div>
+
+<%- include('partials/footer') %>

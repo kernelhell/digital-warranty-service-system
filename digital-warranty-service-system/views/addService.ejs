@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+
+<a href="/services">&larr; Back to Service Records</a>
+<h1>Log a Service Record</h1>
+
+<form class="stacked-form" action="/services" method="POST">
+  <label>Product</label>
+  <select name="productId" required>
+    <option value="" disabled <%= !preselectedProductId ? 'selected' : '' %>>Select a product</option>
+    <% products.forEach(p => { %>
+      <option value="<%= p.id %>" <%= String(preselectedProductId) === String(p.id) ? 'selected' : '' %>>
+        <%= p.productName %> (<%= p.serialNumber %>) &mdash; <%= p.Customer ? p.Customer.name : '' %>
+      </option>
+    <% }) %>
+  </select>
+
+  <label>Service Date</label>
+  <input type="date" name="serviceDate" required />
+
+  <label>Issue Description</label>
+  <textarea name="issueDescription" rows="3" placeholder="Describe the problem reported" required></textarea>
+
+  <label>Resolution</label>
+  <textarea name="resolution" rows="3" placeholder="How was it resolved (optional)"></textarea>
+
+  <label>Technician Name</label>
+  <input type="text" name="technicianName" placeholder="Assigned technician" />
+
+  <label>Service Cost (₹)</label>
+  <input type="number" step="0.01" name="serviceCost" value="0" min="0" />
+
+  <label>Status</label>
+  <select name="status">
+    <option value="Pending">Pending</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+  </select>
+
+  <button class="btn" type="submit">Save Service Record</button>
+</form>
+
+<% if (products.length === 0) { %>
+  <p class="empty">You need to register a product first before logging a service. <a href="/products/new">Register a product</a>.</p>
+<% } %>
+
+<%- include('partials/footer') %>

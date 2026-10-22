@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+
+<a href="/customers">&larr; Back to Customers</a>
+<h1><%= customer.name %></h1>
+<p><strong>Email:</strong> <%= customer.email %> &nbsp;|&nbsp; <strong>Phone:</strong> <%= customer.phone %></p>
+<p><strong>Address:</strong> <%= customer.address || '-' %></p>
+
+<h2>Registered Products</h2>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Brand</th>
+      <th>Serial No.</th>
+      <th>Purchase Date</th>
+      <th>Warranty (months)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% customer.Products.forEach(p => { %>
+      <tr>
+        <td><a href="/products/<%= p.id %>"><%= p.productName %></a></td>
+        <td><%= p.brand || '-' %></td>
+        <td><%= p.serialNumber %></td>
+        <td><%= p.purchaseDate %></td>
+        <td><%= p.warrantyPeriodMonths %></td>
+      </tr>
+    <% }) %>
+    <% if (customer.Products.length === 0) { %>
+      <tr><td colspan="5" class="empty">No products registered for this customer.</td></tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('partials/footer') %>

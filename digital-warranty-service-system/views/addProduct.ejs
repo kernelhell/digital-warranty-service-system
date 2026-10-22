@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+
+<a href="/products">&larr; Back to Products</a>
+<h1>Register a Product</h1>
+
+<form class="stacked-form" action="/products" method="POST">
+  <label>Customer</label>
+  <select name="customerId" required>
+    <option value="" disabled selected>Select a customer</option>
+    <% customers.forEach(c => { %>
+      <option value="<%= c.id %>"><%= c.name %> (<%= c.email %>)</option>
+    <% }) %>
+  </select>
+
+  <label>Product Name</label>
+  <input type="text" name="productName" placeholder="e.g. Samsung Refrigerator" required />
+
+  <label>Brand</label>
+  <input type="text" name="brand" placeholder="e.g. Samsung" />
+
+  <label>Serial Number</label>
+  <input type="text" name="serialNumber" placeholder="Unique serial number" required />
+
+  <label>Purchase Date</label>
+  <input type="date" name="purchaseDate" required />
+
+  <label>Warranty Period (months)</label>
+  <input type="number" name="warrantyPeriodMonths" value="12" min="0" required />
+
+  <button class="btn" type="submit">Register Product</button>
+</form>
+
+<% if (customers.length === 0) { %>
+  <p class="empty">You need to add a customer first before registering a product. <a href="/customers">Add a customer</a>.</p>
+<% } %>
+
+<%- include('partials/footer') %>

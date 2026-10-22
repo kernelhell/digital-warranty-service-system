@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<h1>Customers</h1>
+
+<form class="inline-form" action="/customers" method="POST">
+  <input type="text" name="name" placeholder="Full Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="text" name="phone" placeholder="Phone" required />
+  <input type="text" name="address" placeholder="Address" />
+  <button class="btn" type="submit">Add Customer</button>
+</form>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% customers.forEach(c => { %>
+      <tr>
+        <td><a href="/customers/<%= c.id %>"><%= c.name %></a></td>
+        <td><%= c.email %></td>
+        <td><%= c.phone %></td>
+        <td><%= c.address || '-' %></td>
+        <td>
+          <form action="/customers/<%= c.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this customer and all their products?');">
+            <button class="btn-small btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+    <% if (customers.length === 0) { %>
+      <tr><td colspan="5" class="empty">No customers yet.</td></tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('partials/footer') %>

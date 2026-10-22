@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+
+<a href="/products">&larr; Back to Products</a>
+<h1><%= product.productName %></h1>
+
+<div class="detail-grid">
+  <p><strong>Owner:</strong> <%= product.Customer ? product.Customer.name : '-' %></p>
+  <p><strong>Brand:</strong> <%= product.brand || '-' %></p>
+  <p><strong>Serial No.:</strong> <%= product.serialNumber %></p>
+  <p><strong>Purchase Date:</strong> <%= product.purchaseDate %></p>
+  <p><strong>Warranty Period:</strong> <%= product.warrantyPeriodMonths %> months</p>
+  <p><strong>Warranty Expiry:</strong> <%= expiry %></p>
+  <p><strong>Status:</strong>
+    <span class="badge <%= underWarranty ? 'badge-active' : 'badge-expired' %>">
+      <%= underWarranty ? 'Under Warranty' : 'Expired' %>
+    </span>
+  </p>
+</div>
+
+<div class="row-between">
+  <h2>Service History</h2>
+  <a class="btn" href="/services/new?productId=<%= product.id %>">+ Log Service</a>
+</div>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Issue</th>
+      <th>Resolution</th>
+      <th>Technician</th>
+      <th>Cost</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% product.ServiceRecords.forEach(s => { %>
+      <tr>
+        <td><%= s.serviceDate %></td>
+        <td><%= s.issueDescription %></td>
+        <td><%= s.resolution || '-' %></td>
+        <td><%= s.technicianName || '-' %></td>
+        <td>₹<%= s.serviceCost %></td>
+        <td><%= s.status %></td>
+      </tr>
+    <% }) %>
+    <% if (product.ServiceRecords.length === 0) { %>
+      <tr><td colspan="6" class="empty">No service records for this product yet.</td></tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('partials/footer') %>
