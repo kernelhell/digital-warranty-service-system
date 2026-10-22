@@ -14,8 +14,8 @@ jobs:
     name: Build and smoke-test application
     runs-on: ubuntu-latest
     defaults:
-    run:
-      working-directory: ./digital-warranty-service-system
+      run:
+        working-directory: ./digital-warranty-service-system
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
